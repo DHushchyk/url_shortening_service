@@ -13,6 +13,8 @@ python3 -m venv venv
 source venv\Scripts\activate (on Windows)
 source venv\bin\activate (on Mac)
 pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 ```
 
 ## Getting access
