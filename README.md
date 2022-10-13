@@ -6,12 +6,14 @@ Python3 must be already installed
 
 Install SQLite and create db
 
+```shell
 git clone https://github.com/DHushchyk/url_shortening_service.git
 cd url_shortening_service
 python3 -m venv venv
 source venv\Scripts\activate (on Windows)
 source venv\bin\activate (on Mac)
 pip install -r requirements.txt
+```
 
 ## Getting access
 * create user via python manage.py createsuperuser
