@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-v(uouswbt$ekkvgyz65(8be94_2w^cu!0yn_63_y!9i!90r73_
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+HOST_URL = "http://127.0.0.1:8000"
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "shortener",
     "user",
 ]
@@ -83,6 +84,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "user.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

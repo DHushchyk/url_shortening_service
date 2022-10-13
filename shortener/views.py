@@ -7,7 +7,7 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
 
 from .models import Shortener
-from .serialisers import ShortenerListSerializer, ShortenerDetailSerializer
+from .serializers import ShortenerListSerializer, ShortenerDetailSerializer
 from .utils import get_client_ip
 
 
