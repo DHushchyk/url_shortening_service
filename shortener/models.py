@@ -14,19 +14,12 @@ class Shortener(models.Model):
     redirect_count = models.IntegerField(default=0)
     is_deleted = models.BooleanField(default=False)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     ip = models.CharField(max_length=50, blank=True)
 
     def save(
-        self,
-        force_insert=False,
-        force_update=False,
-        using=None,
-        update_fields=None
+        self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         if not self.short_url:
             self.short_url = create_shortened_url(self)

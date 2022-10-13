@@ -32,13 +32,9 @@ class LinkViewSet(
         queryset = self.queryset.filter(is_deleted=False)
         if self.action == "retrieve":
             if self.request.user.is_authenticated:
-                queryset = queryset.filter(
-                    owner=self.request.user
-                )
+                queryset = queryset.filter(owner=self.request.user)
             else:
-                queryset = queryset.filter(
-                    ip=get_client_ip(self.request)
-                )
+                queryset = queryset.filter(ip=get_client_ip(self.request))
             return queryset
         return queryset
 

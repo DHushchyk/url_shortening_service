@@ -9,16 +9,17 @@ class ShortenerListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Shortener
-        fields = [
-            "id", "original_url", "short_url", "redirect_link"
-        ]
+        fields = ["id", "original_url", "short_url", "redirect_link"]
 
 
 class ShortenerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shortener
         fields = [
-            "id", "original_url",
-            "short_url", "redirect_link",
-            "redirect_count", "last_redirect_time"
+            "id",
+            "original_url",
+            "short_url",
+            "redirect_link",
+            "redirect_count",
+            "last_redirect_time",
         ]
