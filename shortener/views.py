@@ -29,14 +29,17 @@ class LinkViewSet(
         return ShortenerListSerializer
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            queryset = self.queryset.filter(
-                owner=self.request.user
-            ).filter(is_deleted=False)
-        else:
-            queryset = self.queryset.filter(
-                ip=get_client_ip(self.request)
-            ).filter(is_deleted=False)
+        queryset = self.queryset.filter(is_deleted=False)
+        if self.action == "retrieve":
+            if self.request.user.is_authenticated:
+                queryset = queryset.filter(
+                    owner=self.request.user
+                )
+            else:
+                queryset = queryset.filter(
+                    ip=get_client_ip(self.request)
+                )
+            return queryset
         return queryset
 
     def perform_create(self, serializer):
