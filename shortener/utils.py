@@ -50,10 +50,7 @@ def get_client_ip(request):
 def get_country_by_ip(request):
     ip = get_client_ip(request)
 
-    try:
-        response = requests.get(url=f"https://api.2ip.ua/geo.json?ip={ip}").json()
-    except requests.exceptions.InvalidURL:
-        return None
+    response = requests.get(url=f"https://api.2ip.ua/geo.json?ip={ip}").json()
     country = response["country"]
 
     return country
@@ -61,7 +58,7 @@ def get_country_by_ip(request):
 
 def add_redirect_country(request, link_id):
     country = get_country_by_ip(request)
-    if country:
+    if country != "-":
         try:
             country_stat = Country.objects.get(name=country, link_id=link_id)
             country_stat.count += 1
@@ -70,5 +67,5 @@ def add_redirect_country(request, link_id):
             Country.objects.create(
                 name=country,
                 count=1,
-                link_id=id
+                link_id=link_id
             )
