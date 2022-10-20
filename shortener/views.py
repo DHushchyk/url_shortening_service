@@ -34,7 +34,10 @@ class LinkViewSet(
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         response = serializer.data
-        countries = Country.objects.filter(link=instance.id)[:3]
+        countries = [
+            str(country) for country in Country.objects.filter(link=instance.id)[:3]
+        ]
+
         if countries:
             response[f"Top {len(countries)} countries"] = countries
         return Response(response)
