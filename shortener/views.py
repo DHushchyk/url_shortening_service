@@ -8,9 +8,9 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
 
 
-from .models import Shortener
+from .models import Shortener, Country
 from .serializers import ShortenerListSerializer, ShortenerDetailSerializer
-from .utils import get_client_ip, create_redirect_url, create_shortened_url
+from .utils import get_client_ip, create_redirect_url, create_shortened_url, add_redirect_country
 
 
 class LinkViewSet(
@@ -29,6 +29,13 @@ class LinkViewSet(
         if self.action == "retrieve":
             return ShortenerDetailSerializer
         return ShortenerListSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        response = serializer.data
+        response["Top 3 countries"] = Country.objects.filter(link=instance.id)[:3]
+        return Response(response)
 
     def get_queryset(self):
         queryset = self.queryset.filter(is_deleted=False)
@@ -63,5 +70,6 @@ def redirect_url_view(request, shortened_part):
     shortener.redirect_count += 1
     shortener.last_redirect_time = datetime.now()
     shortener.save()
+    add_redirect_country(request, shortener)
 
     return HttpResponseRedirect(shortener.original_url)

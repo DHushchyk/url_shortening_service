@@ -13,3 +13,15 @@ class Shortener(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     ip = models.CharField(max_length=50, blank=True)
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=255)
+    count = models.IntegerField()
+    link = models.ForeignKey(Shortener, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["-count"]
+
+    def __str__(self):
+        return f"{self.name}: {self.count} times."

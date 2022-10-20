@@ -1,9 +1,11 @@
+import requests
+
 from random import choice
 
 from string import ascii_letters, digits
 from django.contrib.sites.shortcuts import get_current_site
 
-from .models import Shortener
+from .models import Shortener, Country
 
 SIZE = 6
 
@@ -43,3 +45,29 @@ def get_client_ip(request):
     else:
         ip = request.META.get("REMOTE_ADDR")
     return ip
+
+
+def get_country_by_ip(request):
+    ip = get_client_ip(request)
+    try:
+        response = requests.get(url=f"https:ip-api.com/json/{ip}").json()
+    except requests.exceptions.InvalidURL:
+        return None
+    country = response["country"]
+
+    return country
+
+
+def add_redirect_country(request, shortener):
+    country = get_country_by_ip(request)
+    if country:
+        country_stat = Country.objects.get(country=country, link=shortener.id)
+        if country_stat:
+            country_stat.count += 1
+            country_stat.save()
+        else:
+            Country.objects.create(
+                name=country,
+                count=1,
+                link=shortener.id
+            )
