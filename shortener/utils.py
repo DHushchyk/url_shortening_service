@@ -39,6 +39,8 @@ def create_redirect_url(short_part, request):
 
 
 def get_client_ip(request):
+    """Gets a client ip"""
+
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:
         ip = x_forwarded_for.split(",")[-1].strip()
@@ -48,6 +50,8 @@ def get_client_ip(request):
 
 
 def get_country_by_ip(request):
+    """Gets a country by client ip"""
+
     ip = get_client_ip(request)
 
     response = requests.get(url=f"https://api.2ip.ua/geo.json?ip={ip}").json()
@@ -57,6 +61,8 @@ def get_country_by_ip(request):
 
 
 def add_redirect_country(request, link_id):
+    """Adds an information of redirect to Country"""
+
     country = get_country_by_ip(request)
     if country != "-":
         try:

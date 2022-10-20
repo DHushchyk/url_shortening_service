@@ -35,10 +35,11 @@ class LinkViewSet(
         serializer = self.get_serializer(instance)
         response = serializer.data
         countries = [
-            str(country) for country in Country.objects.filter(link=instance.id)[:3]
+            str(country)
+            for country in Country.objects.filter(link=instance.id)[:3]
         ]
         if countries:
-            response[f"Top {len(countries)} countries"] = countries
+            response[f"Top {len(countries)} countries redirect"] = countries
         return Response(response)
 
     def get_queryset(self):
