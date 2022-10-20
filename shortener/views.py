@@ -37,7 +37,6 @@ class LinkViewSet(
         countries = [
             str(country) for country in Country.objects.filter(link=instance.id)[:3]
         ]
-
         if countries:
             response[f"Top {len(countries)} countries"] = countries
         return Response(response)
@@ -75,6 +74,6 @@ def redirect_url_view(request, shortened_part):
     shortener.redirect_count += 1
     shortener.last_redirect_time = datetime.now()
     shortener.save()
-    add_redirect_country(request, shortener)
+    add_redirect_country(request, shortener.id)
 
     return HttpResponseRedirect(shortener.original_url)

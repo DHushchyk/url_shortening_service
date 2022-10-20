@@ -58,16 +58,16 @@ def get_country_by_ip(request):
     return country
 
 
-def add_redirect_country(request, shortener):
+def add_redirect_country(request, link_id):
     country = get_country_by_ip(request)
     if country:
-        country_stat = Country.objects.get(country=country, link=shortener.id)
-        if country_stat:
+        try:
+            country_stat = Country.objects.get(name=country, link_id=link_id)
             country_stat.count += 1
             country_stat.save()
-        else:
+        except Country.DoesNotExist:
             Country.objects.create(
                 name=country,
                 count=1,
-                link=shortener.id
+                link_id=id
             )
