@@ -50,7 +50,7 @@ def get_client_ip(request):
 def get_country_by_ip(request):
     ip = get_client_ip(request)
     try:
-        response = requests.get(url=f"https:ip-api.com/json/{ip}").json()
+        response = requests.get(url=f"https:ip-api.com/#{ip}")
     except requests.exceptions.InvalidURL:
         return None
     country = response["country"]
