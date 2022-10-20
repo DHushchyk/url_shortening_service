@@ -1,7 +1,9 @@
 from random import choice
 
 from string import ascii_letters, digits
+from django.contrib.sites.shortcuts import get_current_site
 
+from .models import Shortener
 
 SIZE = 6
 
@@ -14,18 +16,24 @@ def create_random_code(chars=AVAILABLE_CHARS):
     return "".join([choice(chars) for _ in range(SIZE)])
 
 
-def create_shortened_url(model_instance):
+def create_shortened_url():
     """Creates a shortened url and checks if it is unique"""
 
     shortened_url = create_random_code()
 
-    model_class = model_instance.__class__
+    if Shortener.objects.filter(short_url=shortened_url).exists():
 
-    if model_class.objects.filter(short_url=shortened_url).exists():
-
-        return create_shortened_url(model_instance)
+        return create_shortened_url()
 
     return shortened_url
+
+
+def create_redirect_url(short_part, request):
+    """Creates a redirect url"""
+
+    current_site = get_current_site(request)
+
+    return f"http://{current_site}/redirect/{short_part}/"
 
 
 def get_client_ip(request):

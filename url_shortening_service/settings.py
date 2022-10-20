@@ -29,7 +29,6 @@ SECRET_KEY = "django-insecure-v(uouswbt$ekkvgyz65(8be94_2w^cu!0yn_63_y!9i!90r73_
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "url-shortener-dh.herokuapp.com"]
-HOST_URL = "http://127.0.0.1:8000"
 
 # Application definition
 
