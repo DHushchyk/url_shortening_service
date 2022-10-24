@@ -6,7 +6,7 @@ from rest_framework import status
 from django.test.client import Client
 from rest_framework.test import APIClient
 
-from shortener.models import Shortener
+from shortener.models import Shortener, Country
 
 from shortener.serializers import ShortenerListSerializer
 
@@ -105,15 +105,16 @@ class UnAuthenticatedShortenerAPITest(TestCase):
         self.fourth_client.get(redirect_url)
 
         expected_countries = [
-            "Ukraine: 5 times.",
-            "Netherlands: 3 times.",
-            "Canada: 2 times.",
+            {
+                "name": country.name,
+                "count": country.count
+            } for country in Country.objects.filter(link=link.data["id"])
         ]
 
         res = self.client.get(detail_url)
 
         self.assertEqual(res.data["redirect_count"], 11)
-        self.assertEqual(res.data["Top 3 countries redirect"], expected_countries)
+        self.assertEqual(res.data["countries"], expected_countries)
 
 
 class AuthenticatedShortenerAPITest(TestCase):

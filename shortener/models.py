@@ -18,10 +18,7 @@ class Shortener(models.Model):
 class Country(models.Model):
     name = models.CharField(max_length=255)
     count = models.IntegerField()
-    link = models.ForeignKey(Shortener, on_delete=models.CASCADE)
+    link = models.ForeignKey(Shortener, on_delete=models.CASCADE, related_name="countries")
 
     class Meta:
         ordering = ["-count"]
-
-    def __str__(self):
-        return f"{self.name}: {self.count} times."

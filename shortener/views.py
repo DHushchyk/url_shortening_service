@@ -35,17 +35,6 @@ class LinkViewSet(
             return ShortenerDetailSerializer
         return ShortenerListSerializer
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        response = serializer.data
-        countries = [
-            str(country) for country in Country.objects.filter(link=instance.id)[:3]
-        ]
-        if countries:
-            response[f"Top {len(countries)} countries redirect"] = countries
-        return Response(response)
-
     def get_queryset(self):
         queryset = self.queryset.filter(is_deleted=False)
         if self.action == "retrieve":

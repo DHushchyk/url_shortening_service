@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from shortener.models import Shortener
+from shortener.models import Shortener, Country
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ["name", "count"]
 
 
 class ShortenerListSerializer(serializers.ModelSerializer):
@@ -13,6 +19,8 @@ class ShortenerListSerializer(serializers.ModelSerializer):
 
 
 class ShortenerDetailSerializer(serializers.ModelSerializer):
+    countries = CountrySerializer(many=True, read_only=True)
+
     class Meta:
         model = Shortener
         fields = [
@@ -22,4 +30,5 @@ class ShortenerDetailSerializer(serializers.ModelSerializer):
             "redirect_link",
             "redirect_count",
             "last_redirect_time",
+            "countries"
         ]
