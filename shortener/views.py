@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework import viewsets, mixins, status
 
 from rest_framework.response import Response
+from rest_framework.reverse import reverse_lazy
 
-
-from .models import Shortener, Country
+from .models import Shortener
 from .serializers import ShortenerListSerializer, ShortenerDetailSerializer
 from .utils import (
     get_client_ip,
@@ -75,8 +75,5 @@ def redirect_url_view(request, shortened_part):
 
 def index(request):
 
-    return render(request, "test_index.html")
+    return render(request, "index.html")
 
-
-def detail_info(request):
-    return render(request, "detail.html")

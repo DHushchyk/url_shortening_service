@@ -14,6 +14,9 @@ class Shortener(models.Model):
     )
     ip = models.CharField(max_length=50, blank=True)
 
+    class Meta:
+        ordering = ["-id"]
+
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
