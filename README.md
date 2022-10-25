@@ -2,6 +2,12 @@
 
 API service for shortening url written on DRF
 
+## Check it out!
+
+[URL Shortening Servicee project deployed to Heroku](https://url-shortener-dh.herokuapp.com/)
+
+## Installation
+
 Python3 must be already installed
 
 Install SQLite and create db
@@ -18,12 +24,13 @@ python manage.py runserver
 ```
 
 ## Getting access
-* create user via python manage.py createsuperuser
-* all guests get access to api
+* access via admin panel /admin/ username: superuser, password: Afjo346@tr
+* all guests get access to api and home page
 
 
 ## Features
 * Admin panel /admin/
-* Creating short urls and getting lisl of them /api/links/
+* Creating short urls and getting lisl of them
+* Creating short urls and getting lisl of them via API /api/links/
 * Getting statistics of redirect /api/links/<link_id>/ (only for owners)
 * Short link redirect server_url/redirect/short_url/
