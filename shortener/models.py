@@ -17,6 +17,9 @@ class Shortener(models.Model):
     class Meta:
         ordering = ["-id"]
 
+    def __str__(self):
+        return f"{self.original_url} to {self.short_url}"
+
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
