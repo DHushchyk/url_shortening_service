@@ -7,7 +7,7 @@ let linkArray = [];
 function BindLinks() {
 	$.ajax({
 		method: "GET",
-		url: "http://127.0.0.1:8000/api/links/",
+		url: "https://url-shortener-dh.herokuapp.com/api/links/",
 		success: function (response) {
 			linkArray = response
 			buildTable(linkArray)
@@ -38,7 +38,7 @@ $('#btnSubmit').click(function () {
 		data: {
 			"original_url": originalURL,
 		},
-		url: "http://127.0.0.1:8000/api/links/",
+		url: "https://url-shortener-dh.herokuapp.com/api/links/",
 		success: function (result) {
 			location.reload()
 		},
