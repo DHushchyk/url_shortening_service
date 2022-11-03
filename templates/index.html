@@ -9,6 +9,7 @@
 			<h3 class="lead">Create your short URL</h3>
 			<div>
 				<form class="form-group">
+					{% csrf_token %}
 					<label for="txtOriginalURL"></label>
 					<input type="text" placeholder="Input your original link" class="form-control" id="txtOriginalURL">
 				</form>
