@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 
 let linkArray = [];
+let $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
 
 function BindLinks() {
 	$.ajax({
@@ -38,6 +39,7 @@ $('#btnSubmit').click(function () {
 		data: {
 			"original_url": originalURL,
 		},
+		headers:{"X-CSRFToken": $crf_token},
 		url: "https://url-shortener-dh.herokuapp.com/api/links/",
 		success: function (result) {
 			location.reload()
